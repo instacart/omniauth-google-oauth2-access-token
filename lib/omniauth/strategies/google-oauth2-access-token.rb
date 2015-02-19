@@ -23,7 +23,7 @@ module OmniAuth
       option :client_secret, nil
 
       option :access_token_options, {
-        :header_format => 'OAuth %s',
+        :header_format => 'Bearer %s',
         :param_name => 'access_token'
       }
 
@@ -67,7 +67,7 @@ module OmniAuth
       end
 
       def raw_info
-        @raw_info ||= access_token.get('https://www.googleapis.com/oauth2/v1/userinfo').parsed
+        @raw_info ||= access_token.get('https://www.googleapis.com/userinfo/v2/me').parsed
       end
 
       def client
@@ -119,7 +119,7 @@ module OmniAuth
       def build_access_token
         hash = request.params.slice("access_token", "refresh_token", "expires_in", "token_type")
         ::OAuth2::AccessToken.from_hash(
-          client, 
+          client,
           hash.update(options.access_token_options)
         )
       end
