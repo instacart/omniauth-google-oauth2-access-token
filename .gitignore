@@ -21,3 +21,5 @@ doc/
 # emacs
 *.*~
 *~
+
+.ruby-version
